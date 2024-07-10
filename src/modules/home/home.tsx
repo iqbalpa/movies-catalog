@@ -72,7 +72,6 @@ const HomeModule: React.FC = () => {
 
   return (
     <div className="flex min-h-screen w-full flex-col pb-20">
-      <Header />
       <Backdrop movie={movies[2]} backdrop={backdrop} />
       <SearchBar query={query} handleQueryChange={handleQueryChange} />
       <ListMovies movies={movies} />

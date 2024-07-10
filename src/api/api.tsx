@@ -37,6 +37,18 @@ const getMoviesWithQuery = async (
   return movies;
 };
 
+const getMovieById = async (id: number): Promise<Movie> => {
+  const res = await axios.get(`${BASE_URL}movie/${id}`, {
+    headers: {
+      Accept: 'application/json',
+      Authorization: `Bearer ${API_KEY}`,
+    },
+  });
+  const movie: Movie = res.data;
+  console.log(movie);
+  return movie;
+};
+
 const parseQuery = (query: string): string => {
   return query.replace(' ', '+');
 };
@@ -45,4 +57,5 @@ export default {
   BASE_URL,
   getAllMovies,
   getMoviesWithQuery,
+  getMovieById,
 };
