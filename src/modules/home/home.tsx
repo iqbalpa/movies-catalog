@@ -32,6 +32,21 @@ const HomeModule: React.FC = () => {
     fetchMovies();
   }, [currentPage]);
 
+  useEffect(() => {
+    if (query === '') {
+      return;
+    }
+    const fetchMovies = async () => {
+      try {
+        const res: Movie[] = await api.getMoviesWithQuery(query);
+        setMovies(res);
+      } catch (e) {
+        console.log('failed to fetch the movies');
+      }
+    };
+    fetchMovies();
+  }, [query]);
+
   const handleClickPrev = () => {
     setCurrentPage((prevPage) => {
       if (prevPage === 1) {
