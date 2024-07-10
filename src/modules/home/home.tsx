@@ -16,6 +16,9 @@ const HomeModule: React.FC = () => {
   const [query, setQuery] = useState<string>('');
 
   useEffect(() => {
+    if (query !== '') {
+      return;
+    }
     const fetchMovies = async () => {
       try {
         const res: Movie[] = await api.getAllMovies(currentPage);
@@ -38,14 +41,14 @@ const HomeModule: React.FC = () => {
     }
     const fetchMovies = async () => {
       try {
-        const res: Movie[] = await api.getMoviesWithQuery(query);
+        const res: Movie[] = await api.getMoviesWithQuery(query, currentPage);
         setMovies(res);
       } catch (e) {
         console.log('failed to fetch the movies');
       }
     };
     fetchMovies();
-  }, [query]);
+  }, [query, currentPage]);
 
   const handleClickPrev = () => {
     setCurrentPage((prevPage) => {

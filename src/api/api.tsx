@@ -19,14 +19,20 @@ const getAllMovies = async (currentPage: number): Promise<Movie[]> => {
   return movies;
 };
 
-const getMoviesWithQuery = async (query: string): Promise<Movie[]> => {
+const getMoviesWithQuery = async (
+  query: string,
+  currentPage: number,
+): Promise<Movie[]> => {
   const parsedQuery = parseQuery(query);
-  const res = await axios.get(`${BASE_URL}search/movie?query=${parsedQuery}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${API_KEY}`,
+  const res = await axios.get(
+    `${BASE_URL}search/movie?query=${parsedQuery}&page=${currentPage}`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${API_KEY}`,
+      },
     },
-  });
+  );
   const movies: Movie[] = res.data.results;
   return movies;
 };
