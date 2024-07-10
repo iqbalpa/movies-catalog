@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { Movie } from '@/constant/movie';
+import { DetailMovie } from '@/constant/detailMovie';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY =
@@ -37,14 +38,14 @@ const getMoviesWithQuery = async (
   return movies;
 };
 
-const getMovieById = async (id: number): Promise<Movie> => {
+const getMovieById = async (id: number): Promise<DetailMovie> => {
   const res = await axios.get(`${BASE_URL}movie/${id}`, {
     headers: {
       Accept: 'application/json',
       Authorization: `Bearer ${API_KEY}`,
     },
   });
-  const movie: Movie = res.data;
+  const movie: DetailMovie = res.data;
   console.log(movie);
   return movie;
 };
