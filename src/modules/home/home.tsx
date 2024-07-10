@@ -6,17 +6,7 @@ import { Movie } from '@/constant/movie';
 import Header from '@/components/header/header';
 import Backdrop from '@/components/backdrop/backdrop';
 import ListMovies from '@/components/listMovies/listMovies';
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-  PaginationNextDouble,
-  PaginationPreviousDouble,
-} from '@/components/ui/pagination';
+import MyPagination from '@/components/myPagination/myPagination';
 
 const HomeModule: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -63,48 +53,12 @@ const HomeModule: React.FC = () => {
       <Header />
       <Backdrop movie={movies[2]} backdrop={backdrop} />
       <ListMovies movies={movies} />
-
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPreviousDouble
-              onClick={() => setCurrentPage(1)}
-              className="hover:cursor-pointer"
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationPrevious
-              onClick={handleClickPrev}
-              className="hover:cursor-pointer"
-            />
-          </PaginationItem>
-          {currentPage > 1 && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          <PaginationItem>
-            <PaginationLink>{currentPage}</PaginationLink>
-          </PaginationItem>
-          {currentPage < maxPage && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          <PaginationItem>
-            <PaginationNext
-              onClick={handleClickNext}
-              className="hover:cursor-pointer"
-            />
-          </PaginationItem>
-          <PaginationItem>
-            <PaginationNextDouble
-              onClick={() => setCurrentPage(maxPage)}
-              className="hover:cursor-pointer"
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+      <MyPagination
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        handleClickNext={handleClickNext}
+        handleClickPrev={handleClickPrev}
+      />
     </div>
   );
 };
