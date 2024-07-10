@@ -1,6 +1,7 @@
 import { Movie } from '@/constant/movie';
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import { Skeleton } from '../ui/skeleton';
 
 interface IBackdrop {
   movie: Movie;
@@ -8,6 +9,8 @@ interface IBackdrop {
 }
 
 const Backdrop: React.FC<IBackdrop> = ({ movie, backdrop }) => {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
     <div className="relative mt-16 h-[28rem] w-full">
       <div className="absolute inset-0 z-20 bg-black bg-opacity-30"></div>
@@ -17,12 +20,16 @@ const Backdrop: React.FC<IBackdrop> = ({ movie, backdrop }) => {
         </p>
         <p>{movie?.overview}</p>
       </div>
+      {isLoading && (
+        <Skeleton className="absolute inset-0 z-30 h-full w-full" />
+      )}
       <Image
         src={backdrop}
         alt="backdrop-image"
         layout="fill"
         objectFit="cover"
-        className="z-10"
+        className={`z-10 transition-opacity duration-500 ${isLoading ? 'opacity-0' : 'opacity-100'}`}
+        onLoad={() => setIsLoading(false)}
       />
     </div>
   );
