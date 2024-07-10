@@ -5,8 +5,9 @@ import { DetailMovie } from '@/constant/detailMovie';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CircleArrowLeft } from 'lucide-react';
+import { CircleArrowLeft, Dot, Star } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { convertRuntime } from '@/utils/convertRuntime';
 
 interface IDetailMovieModule {
   id: string;
@@ -46,6 +47,8 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
         {isLoading && (
           <Skeleton className="absolute inset-0 z-30 h-full w-full" />
         )}
+
+        {/* backdrop */}
         <Image
           src={`https://image.tmdb.org/t/p/original${movie?.backdrop_path}`}
           alt="backdrop-image"
@@ -64,14 +67,21 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
               height={500}
               className="rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl"
             />
-            {/* year, title, overview, genres */}
+
             <div className="ml-5 mt-3 flex flex-col gap-3 text-white">
-              <p className="ml-2 text-xl font-bold">
-                {movie.release_date.split('-')[0]}
-              </p>
+              {/* year and runtime */}
+              <div className="flex flex-row items-center gap-1">
+                <p className="ml-2 text-xl font-bold">
+                  {movie.release_date.split('-')[0]}
+                </p>
+                <Dot />
+                <p>{convertRuntime(movie.runtime)}</p>
+              </div>
+
+              {/* title, overview, genres */}
               <h1 className="text-3xl font-bold">{movie.title}</h1>
               <p>{movie.overview}</p>
-              <div className="mt-2 flex flex-row gap-2">
+              <div className="flex flex-row gap-2">
                 {movie.genres.map((genre, index) => (
                   <div
                     key={genre.id}
@@ -81,11 +91,21 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
                   </div>
                 ))}
               </div>
+
+              {/* stars */}
+              <div className="ml-1 flex flex-row items-center gap-2">
+                <Star className="text-yellow-300" fill="yellow" />
+                <p className="text-sm text-slate-400">
+                  <span className="text-lg font-bold text-white">
+                    {movie.vote_average.toFixed(1)}
+                  </span>
+                  /10
+                </p>
+              </div>
             </div>
           </div>
         )}
       </div>
-      <h1>hello from detail movie page {id}</h1>
     </div>
   );
 };
