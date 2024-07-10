@@ -16,9 +16,13 @@ const Card: React.FC<ICard> = ({ movie }) => {
     <div className="relative h-[450px] w-[300px] overflow-hidden rounded-xl">
       <div className="absolute inset-0 z-10 bg-black bg-opacity-20"></div>
       <div className="absolute left-0 top-0 z-20 w-full p-4 text-center text-white">
-        <p className="font-bold">
-          {movie.title} ({movie?.release_date.split('-')[0]})
-        </p>
+        {movie.release_date ? (
+          <p className="font-bold">
+            {movie.title} ({movie?.release_date.split('-')[0]})
+          </p>
+        ) : (
+          <p className="font-bold">{movie.title}</p>
+        )}
       </div>
       {isLoading && <Skeleton className="absolute inset-0 h-full w-full" />}
       <Image
