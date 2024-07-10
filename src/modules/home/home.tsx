@@ -14,6 +14,8 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
+  PaginationNextDouble,
+  PaginationPreviousDouble,
 } from '@/components/ui/pagination';
 
 const HomeModule: React.FC = () => {
@@ -38,7 +40,7 @@ const HomeModule: React.FC = () => {
     fetchMovies();
   }, [currentPage]);
 
-  const maxPage = Math.floor(948785 / 20);
+  const maxPage = 500;
   const handleClickPrev = () => {
     setCurrentPage((prevPage) => {
       if (prevPage === 1) {
@@ -65,6 +67,12 @@ const HomeModule: React.FC = () => {
       <Pagination>
         <PaginationContent>
           <PaginationItem>
+            <PaginationPreviousDouble
+              onClick={() => setCurrentPage(1)}
+              className="hover:cursor-pointer"
+            />
+          </PaginationItem>
+          <PaginationItem>
             <PaginationPrevious
               onClick={handleClickPrev}
               className="hover:cursor-pointer"
@@ -86,6 +94,12 @@ const HomeModule: React.FC = () => {
           <PaginationItem>
             <PaginationNext
               onClick={handleClickNext}
+              className="hover:cursor-pointer"
+            />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationNextDouble
+              onClick={() => setCurrentPage(maxPage)}
               className="hover:cursor-pointer"
             />
           </PaginationItem>
