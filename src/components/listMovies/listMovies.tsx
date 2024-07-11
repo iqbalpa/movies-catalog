@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Movie } from '@/constant/movie';
-import Card from '../card/card';
+import Card from '@/components/card/card';
 
 interface IListMovies {
   movies: Movie[];

@@ -1,7 +1,7 @@
 import React from 'react';
 import Image from 'next/image';
 import { Cast } from '@/constant/detailMovie';
-import CastCard from '../castCard/castCard';
+import CastCard from '@/components/castCard/castCard';
 
 interface ITopCast {
   cast: Cast[];

@@ -1,7 +1,7 @@
 import { Movie } from '@/constant/movie';
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { Skeleton } from '../ui/skeleton';
+import { Skeleton } from '@/components/ui/skeleton';
 
 interface IBackdrop {
   movie: Movie;
