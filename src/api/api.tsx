@@ -39,12 +39,15 @@ const getMoviesWithQuery = async (
 };
 
 const getMovieById = async (id: number): Promise<DetailMovie> => {
-  const res = await axios.get(`${BASE_URL}movie/${id}`, {
-    headers: {
-      Accept: 'application/json',
-      Authorization: `Bearer ${API_KEY}`,
+  const res = await axios.get(
+    `${BASE_URL}movie/${id}?append_to_response=credits`,
+    {
+      headers: {
+        Accept: 'application/json',
+        Authorization: `Bearer ${API_KEY}`,
+      },
     },
-  });
+  );
   const movie: DetailMovie = res.data;
   console.log(movie);
   return movie;

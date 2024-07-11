@@ -31,12 +31,15 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
     fetchMovie();
   }, [id]);
 
+  if (!movie) {
+    return;
+  }
+
   return (
-    <div className="bg-black min-h-screen">
+    <div className="min-h-screen bg-black pb-20">
+      {/* backdrop */}
       <div className="relative h-[36rem] w-full">
         <BackButton />
-
-        {/* backdrop */}
         <div className="absolute inset-0 z-20 bg-gradient-to-b from-transparent to-black"></div>
         {isLoading && (
           <Skeleton className="absolute inset-0 z-30 h-full w-full" />
@@ -73,6 +76,60 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
             </div>
           </div>
         )}
+      </div>
+
+      {/* directors */}
+      <div className="mx-28 flex flex-row gap-2 border-t-[1px] border-slate-800 py-5 text-white">
+        <p className="font-bold">Director</p>
+        {movie.credits.crew
+          .filter((crew) => crew.job === 'Director')
+          .map((crew, index) => (
+            <React.Fragment key={index}>
+              <p>{crew.name}</p>
+              {index !==
+                movie.credits.crew.filter((crew) => crew.job === 'Director')
+                  .length -
+                  1 && <p className="text-gray-400">·</p>}
+            </React.Fragment>
+          ))}
+      </div>
+
+      {/* writers */}
+      <div className="mx-28 flex flex-row gap-2 border-y-[1px] border-slate-800 py-5 text-white">
+        <p className="font-bold">Writers</p>
+        {movie.credits.crew
+          .filter((crew) => crew.job === 'Writer')
+          .map((crew, index) => (
+            <React.Fragment key={index}>
+              <p>{crew.name}</p>
+              {index !==
+                movie.credits.crew.filter((crew) => crew.job === 'Writer')
+                  .length -
+                  1 && <p className="text-gray-400">•</p>}
+            </React.Fragment>
+          ))}
+      </div>
+
+      {/* casts */}
+      <div className="flex flex-col items-center justify-center px-10 py-5 text-white">
+        <h1 className="text-3xl font-bold">Top Casts</h1>
+        <div className="mt-8 grid grid-cols-4 grid-rows-3 gap-4">
+          {movie.credits.cast.slice(0, 12).map((cast, index) => (
+            <div className="flex flex-row items-center gap-2">
+              <Image
+                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
+                alt={cast.name}
+                width={100}
+                height={100}
+                className="rounded-xl"
+              />
+              <div className="flex flex-col">
+                <p className="font-semibold">{cast.name}</p>
+                <p className="text-slate-300">{cast.character}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
