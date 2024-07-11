@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`relative inter.className`}>
+      <body className={`inter.className relative`}>
         <Header />
         {children}
         <GoTop />

@@ -14,6 +14,7 @@ const TopCast: React.FC<ITopCast> = ({ cast }) => {
       <div className="mt-8 grid grid-cols-4 grid-rows-3 gap-4">
         {cast.slice(0, 12).map((cast, index) => (
           <CastCard
+            key={cast.id}
             name={cast.name}
             character={cast.character}
             profile_path={cast.profile_path}

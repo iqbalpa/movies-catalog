@@ -3,7 +3,8 @@ import { Movie } from '@/constant/movie';
 import { DetailMovie } from '@/constant/detailMovie';
 
 const BASE_URL = 'https://api.themoviedb.org/3/';
-const API_KEY = process.env.API_KEY
+const API_KEY =
+  'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzM0Njg0NjI2OTg1ODI3OTE1NzMyNWY5OTAxZmU4ZCIsIm5iZiI6MTcyMDU4OTg3MC4wMzYzNDIsInN1YiI6IjY2OGUxY2JlMzA0OTRhNmE2OTMyYzE3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jkIXGMw1WWmtEO9XDryk4R5gP35WQIZHQ8uGIH-QgnM';
 
 const getAllMovies = async (currentPage: number): Promise<Movie[]> => {
   const res = await axios.get(
@@ -57,7 +58,6 @@ const parseQuery = (query: string): string => {
 };
 
 export default {
-  BASE_URL,
   getAllMovies,
   getMoviesWithQuery,
   getMovieById,

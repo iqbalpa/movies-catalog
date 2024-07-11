@@ -22,18 +22,16 @@ const HomeModule: React.FC = () => {
     const fetchMovies = async () => {
       try {
         const res: Movie[] = await api.getAllMovies(currentPage);
-        console.log(res);
         setMovies(res);
         setBackdrop(
           `https://image.tmdb.org/t/p/original${res[2].backdrop_path}`,
         );
-        console.log(backdrop);
       } catch (e) {
         console.log('failed to fetch the movies');
       }
     };
     fetchMovies();
-  }, [currentPage]);
+  }, [currentPage, query, backdrop]);
 
   useEffect(() => {
     if (query === '') {
