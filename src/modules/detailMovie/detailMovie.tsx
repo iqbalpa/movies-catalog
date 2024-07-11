@@ -9,6 +9,7 @@ import BackButton from '@/components/backButton/backButton';
 import Rating from '@/components/rating/rating';
 import Genres from '@/components/genres/genres';
 import YearRuntime from '@/components/yearRuntime/yearRuntime';
+import CrewList from '@/components/crewList/crewList';
 
 interface IDetailMovieModule {
   id: string;
@@ -78,37 +79,8 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
         )}
       </div>
 
-      {/* directors */}
-      <div className="mx-28 flex flex-row gap-2 border-t-[1px] border-slate-800 py-5 text-white">
-        <p className="font-bold">Director</p>
-        {movie.credits.crew
-          .filter((crew) => crew.job === 'Director')
-          .map((crew, index) => (
-            <React.Fragment key={index}>
-              <p>{crew.name}</p>
-              {index !==
-                movie.credits.crew.filter((crew) => crew.job === 'Director')
-                  .length -
-                  1 && <p className="text-gray-400">·</p>}
-            </React.Fragment>
-          ))}
-      </div>
-
-      {/* writers */}
-      <div className="mx-28 flex flex-row gap-2 border-y-[1px] border-slate-800 py-5 text-white">
-        <p className="font-bold">Writers</p>
-        {movie.credits.crew
-          .filter((crew) => crew.job === 'Writer')
-          .map((crew, index) => (
-            <React.Fragment key={index}>
-              <p>{crew.name}</p>
-              {index !==
-                movie.credits.crew.filter((crew) => crew.job === 'Writer')
-                  .length -
-                  1 && <p className="text-gray-400">•</p>}
-            </React.Fragment>
-          ))}
-      </div>
+      <CrewList job="Director" crew={movie.credits.crew} />
+      <CrewList job="Writer" crew={movie.credits.crew} />
 
       {/* casts */}
       <div className="flex flex-col items-center justify-center px-10 py-5 text-white">

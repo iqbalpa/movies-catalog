@@ -27,7 +27,7 @@ interface SpokenLanguage {
   name: string;
 }
 
-interface Cast {
+export interface Cast {
   adult: boolean;
   cast_id: number;
   character: string;
@@ -42,7 +42,7 @@ interface Cast {
   profile_path: string;
 }
 
-interface Crew {
+export interface Crew {
   adult: boolean;
   credit_id: string;
   department: string;
