@@ -1,9 +1,8 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import api from '@/api/api';
+import { getAllMovies, getMoviesWithQuery } from '@/api/api';
 import { Movie } from '@/constant/movie';
-import Header from '@/components/header/header';
 import Backdrop from '@/components/backdrop/backdrop';
 import ListMovies from '@/components/listMovies/listMovies';
 import MyPagination from '@/components/myPagination/myPagination';
@@ -21,7 +20,7 @@ const HomeModule: React.FC = () => {
     }
     const fetchMovies = async () => {
       try {
-        const res: Movie[] = await api.getAllMovies(currentPage);
+        const res: Movie[] = await getAllMovies(currentPage);
         setMovies(res);
         setBackdrop(
           `https://image.tmdb.org/t/p/original${res[2].backdrop_path}`,
@@ -39,7 +38,7 @@ const HomeModule: React.FC = () => {
     }
     const fetchMovies = async () => {
       try {
-        const res: Movie[] = await api.getMoviesWithQuery(query, currentPage);
+        const res: Movie[] = await getMoviesWithQuery(query, currentPage);
         setMovies(res);
       } catch (e) {
         console.log('failed to fetch the movies');

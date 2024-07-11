@@ -6,7 +6,7 @@ const BASE_URL = 'https://api.themoviedb.org/3/';
 const API_KEY =
   'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1MzM0Njg0NjI2OTg1ODI3OTE1NzMyNWY5OTAxZmU4ZCIsIm5iZiI6MTcyMDU4OTg3MC4wMzYzNDIsInN1YiI6IjY2OGUxY2JlMzA0OTRhNmE2OTMyYzE3MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jkIXGMw1WWmtEO9XDryk4R5gP35WQIZHQ8uGIH-QgnM';
 
-const getAllMovies = async (currentPage: number): Promise<Movie[]> => {
+export const getAllMovies = async (currentPage: number): Promise<Movie[]> => {
   const res = await axios.get(
     `${BASE_URL}discover/movie?include_adult=true&include_video=false&language=en-US&page=${currentPage}&sort_by=popularity.desc`,
     {
@@ -20,7 +20,7 @@ const getAllMovies = async (currentPage: number): Promise<Movie[]> => {
   return movies;
 };
 
-const getMoviesWithQuery = async (
+export const getMoviesWithQuery = async (
   query: string,
   currentPage: number,
 ): Promise<Movie[]> => {
@@ -38,7 +38,7 @@ const getMoviesWithQuery = async (
   return movies;
 };
 
-const getMovieById = async (id: number): Promise<DetailMovie> => {
+export const getMovieById = async (id: number): Promise<DetailMovie> => {
   const res = await axios.get(
     `${BASE_URL}movie/${id}?append_to_response=credits`,
     {
@@ -55,10 +55,4 @@ const getMovieById = async (id: number): Promise<DetailMovie> => {
 
 const parseQuery = (query: string): string => {
   return query.replace(' ', '+');
-};
-
-export default {
-  getAllMovies,
-  getMoviesWithQuery,
-  getMovieById,
 };

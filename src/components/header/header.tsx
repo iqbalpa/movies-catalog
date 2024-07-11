@@ -25,7 +25,7 @@ const Header: React.FC = () => {
         isScrolled ? 'bg-opacity-100' : 'bg-opacity-10'
       } bg-slate-800`}
     >
-      <div className="container mx-auto flex h-10 md:h-16 items-center justify-between">
+      <div className="container mx-auto flex h-10 items-center justify-between md:h-16">
         <Link
           href="/"
           className="text-lg font-bold text-white md:text-xl lg:text-2xl"

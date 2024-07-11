@@ -1,6 +1,6 @@
 'use client';
 
-import api from '@/api/api';
+import { getMovieById } from '@/api/api';
 import { DetailMovie } from '@/constant/detailMovie';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
@@ -23,7 +23,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   useEffect(() => {
     const fetchMovie = async () => {
       try {
-        const res = await api.getMovieById(parseInt(id));
+        const res = await getMovieById(parseInt(id));
         setMovie(res);
         document.title = `${res.title} (${res.release_date.split('-')[0]})`;
       } catch (e) {
