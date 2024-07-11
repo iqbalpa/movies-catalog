@@ -10,6 +10,7 @@ import Rating from '@/components/rating/rating';
 import Genres from '@/components/genres/genres';
 import YearRuntime from '@/components/yearRuntime/yearRuntime';
 import CrewList from '@/components/crewList/crewList';
+import TopCast from '@/components/topCast/topCast';
 
 interface IDetailMovieModule {
   id: string;
@@ -54,55 +55,32 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
           onLoad={() => setIsLoading(false)}
         />
 
-        {movie && (
-          <div className="absolute bottom-0 left-32 right-52 z-30 flex flex-row rounded-lg pb-8">
-            {/* poster */}
-            <Image
-              src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
-              alt={movie?.title}
-              width={200}
-              height={500}
-              className="rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl"
-            />
+        <div className="absolute bottom-0 left-32 right-52 z-30 flex flex-row rounded-lg pb-8">
+          {/* poster */}
+          <Image
+            src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
+            alt={movie?.title}
+            width={200}
+            height={500}
+            className="rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl"
+          />
 
-            <div className="ml-5 mt-3 flex max-h-[24rem] flex-col gap-3 overflow-hidden text-white">
-              <YearRuntime
-                release_date={movie.release_date}
-                runtime={movie.runtime}
-              />
-              <h1 className="text-3xl font-bold">{movie.title}</h1>
-              <p className="overflow-y-auto">{movie.overview}</p>
-              <Genres genres={movie.genres} />
-              <Rating rating={movie.vote_average} />
-            </div>
+          <div className="ml-5 mt-3 flex max-h-[24rem] flex-col gap-3 overflow-hidden text-white">
+            <YearRuntime
+              release_date={movie.release_date}
+              runtime={movie.runtime}
+            />
+            <h1 className="text-3xl font-bold">{movie.title}</h1>
+            <p className="overflow-y-auto">{movie.overview}</p>
+            <Genres genres={movie.genres} />
+            <Rating rating={movie.vote_average} />
           </div>
-        )}
+        </div>
       </div>
 
       <CrewList job="Director" crew={movie.credits.crew} />
       <CrewList job="Writer" crew={movie.credits.crew} />
-
-      {/* casts */}
-      <div className="flex flex-col items-center justify-center px-10 py-5 text-white">
-        <h1 className="text-3xl font-bold">Top Casts</h1>
-        <div className="mt-8 grid grid-cols-4 grid-rows-3 gap-4">
-          {movie.credits.cast.slice(0, 12).map((cast, index) => (
-            <div className="flex flex-row items-center gap-2">
-              <Image
-                src={`https://image.tmdb.org/t/p/w500${cast.profile_path}`}
-                alt={cast.name}
-                width={100}
-                height={100}
-                className="rounded-xl"
-              />
-              <div className="flex flex-col">
-                <p className="font-semibold">{cast.name}</p>
-                <p className="text-slate-300">{cast.character}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
+      <TopCast cast={movie.credits.cast} />
     </div>
   );
 };
