@@ -10,9 +10,11 @@ interface IYearRuntime {
 const YearRuntime: React.FC<IYearRuntime> = ({ release_date, runtime }) => {
   return (
     <div className="flex flex-row items-center gap-1">
-      <p className="text-xl font-bold">{release_date.split('-')[0]}</p>
+      <p className="text-base font-bold lg:text-xl">
+        {release_date.split('-')[0]}
+      </p>
       <Dot />
-      <p>{convertRuntime(runtime)}</p>
+      <p className="text-sm lg:text-base">{convertRuntime(runtime)}</p>
     </div>
   );
 };

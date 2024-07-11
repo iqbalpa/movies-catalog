@@ -55,14 +55,14 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
           onLoad={() => setIsLoading(false)}
         />
 
-        <div className="absolute bottom-0 left-32 right-52 z-30 flex flex-row rounded-lg pb-8">
+        <div className="absolute bottom-0 z-30 flex flex-col rounded-lg px-8 pb-8 lg:left-32 lg:right-52 lg:flex-row lg:px-0">
           {/* poster */}
           <Image
             src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
             alt={movie?.title}
             width={200}
             height={500}
-            className="rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl"
+            className="hidden rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl lg:block"
           />
 
           <div className="ml-5 mt-3 flex max-h-[24rem] flex-col gap-3 overflow-hidden text-white">
@@ -70,8 +70,12 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
               release_date={movie.release_date}
               runtime={movie.runtime}
             />
-            <h1 className="text-3xl font-bold">{movie.title}</h1>
-            <p className="overflow-y-auto">{movie.overview}</p>
+            <h1 className="text-base font-bold md:text-xl lg:text-3xl">
+              {movie.title}
+            </h1>
+            <p className="overflow-y-auto text-sm md:text-base">
+              {movie.overview}
+            </p>
             <Genres genres={movie.genres} />
             <Rating rating={movie.vote_average} />
           </div>

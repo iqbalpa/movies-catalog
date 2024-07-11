@@ -18,8 +18,8 @@ const CastCard: React.FC<ICastCard> = ({ name, character, profile_path }) => {
         className="rounded-xl"
       />
       <div className="flex flex-col">
-        <p className="font-semibold">{name}</p>
-        <p className="text-slate-300">{character}</p>
+        <p className="text-sm font-semibold md:text-base">{name}</p>
+        <p className="text-sm text-slate-300 md:text-base">{character}</p>
       </div>
     </div>
   );

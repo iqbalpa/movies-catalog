@@ -9,9 +9,9 @@ interface ITopCast {
 
 const TopCast: React.FC<ITopCast> = ({ cast }) => {
   return (
-    <div className="mx-28 flex flex-col items-center justify-center px-10 py-5 text-white">
-      <h1 className="text-3xl font-bold">Top Casts</h1>
-      <div className="mt-8 grid grid-cols-4 grid-rows-3 gap-4">
+    <div className="mx-10 flex flex-col items-center justify-center px-10 py-5 text-white md:mx-28">
+      <h1 className="text-lg font-bold md:text-xl lg:text-3xl">Top Casts</h1>
+      <div className="mt-4 grid gap-4 md:mt-8 md:grid-cols-2 md:grid-rows-6 lg:grid-cols-3 lg:grid-rows-4 xl:grid-cols-4 xl:grid-rows-3">
         {cast.slice(0, 12).map((cast, index) => (
           <CastCard
             key={cast.id}

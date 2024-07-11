@@ -21,7 +21,7 @@ const Header: React.FC = () => {
 
   return (
     <header
-      className={`fixed top-0 z-50 w-full p-4 transition-all duration-500 ${
+      className={`fixed top-0 z-50 w-full transition-all duration-500 ${
         isScrolled ? 'bg-opacity-100' : 'bg-opacity-10'
       } bg-slate-800`}
     >
