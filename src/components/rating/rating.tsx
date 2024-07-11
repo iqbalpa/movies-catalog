@@ -3,7 +3,7 @@ import React from 'react';
 
 const Rating: React.FC<{ rating: number }> = ({ rating }) => {
   return (
-    <div className="ml-1 flex flex-row items-center gap-2">
+    <div className="flex flex-row items-center gap-2">
       <Star className="text-yellow-300" fill="yellow" />
       <p className="text-sm text-slate-400">
         <span className="text-lg font-bold text-white">

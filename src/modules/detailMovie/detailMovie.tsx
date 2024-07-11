@@ -32,7 +32,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   }, [id]);
 
   return (
-    <div className="">
+    <div className="bg-black min-h-screen">
       <div className="relative h-[36rem] w-full">
         <BackButton />
 
