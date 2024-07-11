@@ -5,8 +5,6 @@ import { DetailMovie } from '@/constant/detailMovie';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Skeleton } from '@/components/ui/skeleton';
-import { CircleArrowLeft, Dot, Star } from 'lucide-react';
-import { convertRuntime } from '@/utils/convertRuntime';
 import BackButton from '@/components/backButton/backButton';
 import Rating from '@/components/rating/rating';
 import Genres from '@/components/genres/genres';
@@ -25,7 +23,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
       try {
         const res = await api.getMovieById(parseInt(id));
         setMovie(res);
-        document.title = res.title;
+        document.title = `${res.title} (${res.release_date.split('-')[0]})`;
       } catch (e) {
         console.log('failed to fetch movie');
       }
