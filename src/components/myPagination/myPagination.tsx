@@ -25,7 +25,7 @@ const MyPagination: React.FC<IMyPagination> = ({
   handleClickPrev,
 }) => {
   return (
-    <Pagination>
+    <Pagination className="text-white">
       <PaginationContent>
         <PaginationItem>
           <PaginationPreviousDouble

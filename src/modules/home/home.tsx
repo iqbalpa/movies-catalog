@@ -68,7 +68,7 @@ const HomeModule: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center pb-20">
+    <div className="flex min-h-screen w-full flex-col items-center bg-black pb-20">
       <Backdrop movie={movies[2]} backdrop={backdrop} />
       <SearchBar query={query} handleQueryChange={handleQueryChange} />
       <ListMovies movies={movies} />
