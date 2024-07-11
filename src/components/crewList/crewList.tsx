@@ -7,7 +7,9 @@ interface ICrewList {
 }
 
 const CrewList: React.FC<ICrewList> = ({ job, crew }) => (
-  <div className="mx-28 flex flex-row gap-2 border-t-[1px] border-slate-800 px-2 py-5 text-white">
+  <div
+    className={`mx-28 flex flex-row gap-2 ${job === 'Director' ? 'border-t border-slate-800' : 'border-y border-slate-800'} px-2 py-5 text-white`}
+  >
     <p className="font-bold">{job}</p>
     {crew
       .filter((member) => member.job === job)
