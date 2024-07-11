@@ -35,10 +35,10 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
 
   return (
     <div className="">
-      <div className="relative mt-16 h-[32rem] w-full">
+      <div className="relative h-[36rem] w-full">
         <button
           onClick={handleBack}
-          className="absolute left-5 top-5 z-50 flex flex-row gap-2 rounded-full bg-slate-600 bg-opacity-80 px-5 py-3 text-white duration-100 hover:scale-105 hover:cursor-pointer hover:bg-slate-800 hover:bg-opacity-95"
+          className="absolute left-5 top-20 z-50 flex flex-row gap-2 rounded-full bg-slate-600 bg-opacity-80 px-5 py-3 text-white duration-100 hover:scale-105 hover:cursor-pointer hover:bg-slate-800 hover:bg-opacity-95"
         >
           <CircleArrowLeft />
           <p>Back</p>

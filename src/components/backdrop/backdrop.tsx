@@ -12,7 +12,7 @@ const Backdrop: React.FC<IBackdrop> = ({ movie, backdrop }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="relative mt-16 h-[28rem] w-full">
+    <div className="relative h-[32rem] w-full">
       <div className="absolute inset-0 z-20 bg-black bg-opacity-30"></div>
       <div className="absolute bottom-0 left-0 z-20 p-4 px-60 text-white">
         <p className="mb-2 text-2xl font-bold">
