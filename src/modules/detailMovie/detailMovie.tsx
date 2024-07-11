@@ -35,7 +35,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
 
   return (
     <div className="">
-      <div className="relative mt-16 h-[30rem] w-full">
+      <div className="relative mt-16 h-[32rem] w-full">
         <button
           onClick={handleBack}
           className="absolute left-5 top-5 z-50 flex flex-row gap-2 rounded-full bg-slate-600 bg-opacity-80 px-5 py-3 text-white duration-100 hover:scale-105 hover:cursor-pointer hover:bg-slate-800 hover:bg-opacity-95"
@@ -58,7 +58,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
           onLoad={() => setIsLoading(false)}
         />
         {movie && (
-          <div className="absolute -bottom-12 left-32 right-52 z-30 flex flex-row rounded-lg">
+          <div className="absolute bottom-0 left-32 right-52 z-30 flex flex-row rounded-lg pb-8">
             {/* poster */}
             <Image
               src={`https://image.tmdb.org/t/p/original${movie?.poster_path}`}
@@ -68,7 +68,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
               className="rounded-lg border border-slate-800 shadow-2xl drop-shadow-2xl"
             />
 
-            <div className="ml-5 mt-3 flex flex-col gap-3 text-white">
+            <div className="ml-5 mt-3 flex max-h-[24rem] flex-col gap-3 overflow-hidden text-white">
               {/* year and runtime */}
               <div className="flex flex-row items-center gap-1">
                 <p className="ml-2 text-xl font-bold">
@@ -80,9 +80,9 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
 
               {/* title, overview, genres */}
               <h1 className="text-3xl font-bold">{movie.title}</h1>
-              <p>{movie.overview}</p>
+              <p className="overflow-y-auto">{movie.overview}</p>
               <div className="flex flex-row gap-2">
-                {movie.genres.map((genre, index) => (
+                {movie.genres.map((genre) => (
                   <div
                     key={genre.id}
                     className="rounded-full bg-slate-700 bg-opacity-80 px-4 py-2"
