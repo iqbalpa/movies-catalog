@@ -16,7 +16,7 @@ const Card: React.FC<ICard> = ({ movie }) => {
   return (
     <Link
       href={`/${movie.id}`}
-      className="relative h-[450px] w-[300px] overflow-hidden rounded-xl duration-300 hover:scale-105 hover:cursor-pointer"
+      className="relative h-[300px] w-[200px] overflow-hidden rounded-xl duration-300 hover:scale-105 hover:cursor-pointer md:h-[390px] md:w-[260px] xl:h-[450px] xl:w-[300px]"
     >
       <div className="absolute inset-0 z-10 bg-black bg-opacity-20"></div>
       <div className="absolute left-0 top-0 z-20 w-full p-4 text-center text-white">

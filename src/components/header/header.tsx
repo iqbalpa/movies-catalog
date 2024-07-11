@@ -20,15 +20,20 @@ const Header: React.FC = () => {
   }, []);
 
   return (
-    <div
-      className={`fixed top-0 z-50 h-16 w-full p-4 transition-all duration-500 ${
+    <header
+      className={`fixed top-0 z-50 w-full p-4 transition-all duration-500 ${
         isScrolled ? 'bg-opacity-100' : 'bg-opacity-10'
       } bg-slate-800`}
     >
-      <Link href="/" className="text-2xl font-bold text-white">
-        Movies Catalog
-      </Link>
-    </div>
+      <div className="container mx-auto flex h-10 md:h-16 items-center justify-between">
+        <Link
+          href="/"
+          className="text-lg font-bold text-white md:text-xl lg:text-2xl"
+        >
+          Movies Catalog
+        </Link>
+      </div>
+    </header>
   );
 };
 
