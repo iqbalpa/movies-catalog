@@ -49,7 +49,6 @@ export const getMovieById = async (id: number): Promise<DetailMovie> => {
     },
   );
   const movie: DetailMovie = res.data;
-  console.log(movie);
   return movie;
 };
 

@@ -41,10 +41,7 @@ const SignInModule: React.FC = () => {
         return;
       }
       setCookie('accessToken', res.access_token); // store access token in cookie. use getCookie('accessToken')
-
-      console.log('decoding token...');
       const user = decodeToken(res.access_token).user;
-      console.log(user);
       dispatch(setUser(user));
       toast.success('Login success');
       setTimeout(() => {
@@ -57,7 +54,7 @@ const SignInModule: React.FC = () => {
 
   return (
     <div className="flex h-screen items-center justify-center bg-slate-900">
-      <div className="justify-center flex w-full flex-col items-center bg-opacity-0 p-8 backdrop-blur-md backdrop-filter md:w-1/2 md:border md:border-gray-200 md:bg-opacity-20 md:p-14 lg:w-1/3">
+      <div className="flex w-full flex-col items-center justify-center bg-opacity-0 p-8 backdrop-blur-md backdrop-filter md:w-1/2 md:border md:border-gray-200 md:bg-opacity-20 md:p-14 lg:w-1/3">
         <h1 className="mb-5 text-xl font-bold uppercase text-white">Sign In</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
