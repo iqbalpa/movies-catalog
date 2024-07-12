@@ -11,12 +11,16 @@ import Genres from '@/components/genres/genres';
 import YearRuntime from '@/components/yearRuntime/yearRuntime';
 import CrewList from '@/components/crewList/crewList';
 import TopCast from '@/components/topCast/topCast';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/userStore';
+import { Plus } from 'lucide-react';
 
 interface IDetailMovieModule {
   id: string;
 }
 
 const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
+  const user = useSelector((state: RootState) => state.user.user);
   const [movie, setMovie] = useState<DetailMovie>();
   const [isLoading, setIsLoading] = useState(true);
 
@@ -77,7 +81,15 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
               {movie.overview}
             </p>
             <Genres genres={movie.genres} />
-            <Rating rating={movie.vote_average} />
+            <div className="flex flex-row gap-4">
+              <Rating rating={movie.vote_average} />
+              {user && (
+                <div className="flex flex-row items-center gap-2 rounded-xl bg-yellow-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-yellow-600 md:px-4 md:text-base">
+                  <Plus />
+                  <p className="">Add to watchlist</p>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
