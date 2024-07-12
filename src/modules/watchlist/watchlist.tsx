@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { getCookie } from 'cookies-next';
 import { getWatchlist } from '@/api/watchlist.api';
 import { SquareArrowOutUpRight } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface Movie {
@@ -11,8 +12,10 @@ interface Movie {
   title: string;
   overview: string;
   release_date: string;
-  userId: number;
+  poster_path: string;
 }
+
+const baseUrl = 'https://image.tmdb.org/t/p/original';
 
 const WatchlistModule = () => {
   const [watchlist, setWatchlist] = useState<Movie[]>([]);
@@ -33,7 +36,7 @@ const WatchlistModule = () => {
   }, []);
 
   return (
-    <div className="flex min-h-screen w-full justify-center bg-black pt-20 text-white">
+    <div className="flex min-h-screen w-full justify-center bg-black pb-14 pt-10 text-white md:pt-20">
       {watchlist.length === 0 ? (
         <div className="flex min-h-screen w-full items-center justify-center text-xl font-semibold">
           Your watchlist is empty :{`(`}
@@ -46,12 +49,21 @@ const WatchlistModule = () => {
           <div className="w-full border-t-[1px] border-slate-500"></div>
           <div className="flex flex-col items-center">
             {watchlist.map((movie, index) => (
-              <div className="flex w-full flex-row items-center gap-3 border-b-[1px] border-slate-500 p-2">
+              <div className="flex w-full flex-col items-center gap-3 border-b-[1px] border-slate-500 p-2 md:flex-row">
+                <Image
+                  src={`${baseUrl}${movie.poster_path}`}
+                  alt={movie.title}
+                  width={120}
+                  height={100}
+                  className="rounded-md"
+                />
                 <div className="flex w-full flex-col gap-1">
                   <p className="text-sm font-semibold md:text-base">
-                    {movie.title} {movie.release_date.split('-')[0]}
+                    {movie.title} ({movie.release_date.split('-')[0]})
                   </p>
-                  <p className="text-xs md:text-sm">{movie.overview}</p>
+                  <p className="hidden text-xs md:block md:text-sm">
+                    {movie.overview}
+                  </p>
                 </div>
                 <Link
                   href={`/${movie.id}`}
