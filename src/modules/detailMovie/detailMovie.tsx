@@ -43,20 +43,22 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   }, [id]);
 
   const handleAddWatchlist = async () => {
-    if (!movie || !user) return null;
+    if (!movie) return null;
     try {
       const data = {
-        id: movie?.id,
-        title: movie?.title,
-        overview: movie?.overview,
-        release_date: movie?.release_date,
-        userId: user?.id,
+        id: movie.id,
+        title: movie.title,
+        overview: movie.overview,
+        release_date: movie.release_date,
+        poster_path: movie.poster_path,
       };
+      console.log(data);
       const res = await addToWatchlist(accessToken, data);
       toast.success('Movie added to watchlist');
       console.log('added to watchlist');
       console.log(res);
     } catch (e) {
+      toast.error('failed adding to watchlist');
       console.log('failed to add to watchlist');
     }
   };

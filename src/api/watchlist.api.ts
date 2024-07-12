@@ -7,7 +7,7 @@ interface Movie {
   title: string;
   overview: string;
   release_date: string;
-  userId: number;
+  poster_path: string;
 }
 
 export const getWatchlist = async (accessToken: string): Promise<Movie[]> => {
