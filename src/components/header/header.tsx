@@ -1,9 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
+const antiHeader: string[] = ['/signup', '/signin'];
+
 const Header: React.FC = () => {
+  const pathname = usePathname();
+  const isSidebarDisabled = antiHeader.includes(pathname);
+  if (isSidebarDisabled) {
+    return null;
+  }
+
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
