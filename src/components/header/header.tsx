@@ -1,8 +1,15 @@
 'use client';
 
+import { logout } from '@/store/userSlice';
+import { RootState } from '@/store/userStore';
+import { getCookie } from 'cookies-next';
+import { LogIn, LogOut } from 'lucide-react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const antiHeader: string[] = ['/signup', '/signin'];
 
@@ -13,6 +20,9 @@ const Header: React.FC = () => {
     return null;
   }
 
+  const user = useSelector((state: RootState) => state.user.user);
+  const dispatch = useDispatch();
+  const router = useRouter();
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
@@ -23,10 +33,17 @@ const Header: React.FC = () => {
         setIsScrolled(false);
       }
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    toast.success('Logged out');
+    setTimeout(() => {
+      router.push('/signin');
+    }, 500);
+  };
 
   return (
     <header
@@ -34,13 +51,27 @@ const Header: React.FC = () => {
         isScrolled ? 'bg-opacity-100' : 'bg-opacity-10'
       } bg-slate-800`}
     >
-      <div className="container mx-auto flex h-10 items-center justify-between md:h-16">
-        <Link
-          href="/"
-          className="text-lg font-bold text-white md:text-xl lg:text-2xl"
-        >
+      <div className="container mx-auto flex h-10 items-center justify-between px-2 py-2 text-white md:h-16 md:px-6">
+        <Link href="/" className="text-lg font-bold md:text-xl lg:text-2xl">
           Movies Catalog
         </Link>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-red-300 bg-red-300 bg-opacity-90 px-3 py-2 font-bold text-red-500 duration-150 hover:scale-105 hover:bg-red-200 hover:text-red-700 md:px-4"
+          >
+            <p className="mr-2">Logout</p>
+            <LogOut />
+          </button>
+        ) : (
+          <Link
+            href="/signin"
+            className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-green-300 bg-green-300 bg-opacity-90 px-3 py-2 font-bold text-green-500 duration-150 hover:scale-105 hover:bg-green-200 hover:text-green-700 md:px-4"
+          >
+            <p className="mr-2">Login</p>
+            <LogIn />
+          </Link>
+        )}
       </div>
     </header>
   );
