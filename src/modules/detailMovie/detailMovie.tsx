@@ -16,6 +16,8 @@ import { RootState } from '@/store/userStore';
 import { Plus } from 'lucide-react';
 import { addToWatchlist } from '@/api/watchlist.api';
 import { getCookie } from 'cookies-next';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 interface IDetailMovieModule {
   id: string;
@@ -51,6 +53,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
         userId: user?.id,
       };
       const res = await addToWatchlist(accessToken, data);
+      toast.success('Movie added to watchlist');
       console.log('added to watchlist');
       console.log(res);
     } catch (e) {
