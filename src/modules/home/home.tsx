@@ -1,7 +1,7 @@
 'use client';
 
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { getAllMovies, getMoviesWithQuery } from '@/api/api';
+import { getAllMovies, getMoviesWithQuery } from '@/api/movies.api';
 import { Movie } from '@/constant/movie';
 import Backdrop from '@/components/backdrop/backdrop';
 import ListMovies from '@/components/listMovies/listMovies';

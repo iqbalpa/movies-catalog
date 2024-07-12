@@ -1,6 +1,6 @@
 'use client';
 
-import { getMovieById } from '@/api/api';
+import { getMovieById } from '@/api/movies.api';
 import { DetailMovie } from '@/constant/detailMovie';
 import React, { useEffect, useState } from 'react';
 import Image from 'next/image';
