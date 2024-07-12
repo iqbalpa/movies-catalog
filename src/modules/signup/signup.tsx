@@ -3,66 +3,72 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { signup } from '@/api/auth.api';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useDispatch } from 'react-redux';
-import { setUser } from '@/store/userSlice';
-import { decodeToken } from '@/utils/jwt-decode';
 import { useRouter } from 'next/navigation';
-import { setCookie } from 'cookies-next';
-import { Eye, EyeOff, Mail } from 'lucide-react';
-import { signin } from '@/api/auth.api';
+import { Eye, EyeOff, Mail, User } from 'lucide-react';
 
-type SignInInputs = {
+type SignUpInputs = {
+  name: string;
   email: string;
   password: string;
 };
 
-const SignInModule: React.FC = () => {
-  const dispatch = useDispatch();
+const SignUpModule: React.FC = () => {
   const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    formState: { errors },
-  } = useForm<SignInInputs>();
 
   const [isPassVisible, setIsPassVisible] = useState<boolean>(false);
   const togglePassVisibility = () => {
     setIsPassVisible(!isPassVisible);
   };
 
-  const onSubmit: SubmitHandler<SignInInputs> = async (data) => {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<SignUpInputs>();
+  const onSubmit: SubmitHandler<SignUpInputs> = async (data) => {
     try {
-      const res = await signin(data);
+      const res = await signup(data);
       if (!res) {
-        toast.error('Login failed');
+        toast.error('Registration failed');
         return;
       }
-      setCookie('accessToken', res.access_token); // store access token in cookie. use getCookie('accessToken')
-
-      console.log('decoding token...');
-      const user = decodeToken(res.access_token).user;
-      console.log(user);
-      dispatch(setUser(user));
-      toast.success('Login success');
+      toast.success('Registration success');
       setTimeout(() => {
-        router.push('/');
+        router.push('/signin');
       }, 1500);
     } catch (error) {
-      toast.error('An error occurred during logging in');
+      toast.error('An error occurred during registration');
     }
   };
 
   return (
     <div className="flex h-screen items-center justify-center bg-slate-900">
-      <div className="justify-center flex w-full flex-col items-center bg-opacity-0 p-8 backdrop-blur-md backdrop-filter md:w-1/2 md:border md:border-gray-200 md:bg-opacity-20 md:p-14 lg:w-1/3">
-        <h1 className="mb-5 text-xl font-bold uppercase text-white">Sign In</h1>
+      <div className="flex w-full flex-col items-center justify-center bg-opacity-0 p-8 backdrop-blur-md backdrop-filter md:w-1/2 md:border md:border-gray-200 md:bg-opacity-20 md:p-14 lg:w-1/3">
+        <h1 className="mb-5 text-xl font-bold uppercase text-white">Sign Up</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex w-full flex-col"
         >
+          <div className="mb-2 flex flex-col">
+            <p className="mb-1 font-semibold text-white">Name</p>
+            <div className="flex flex-row items-center">
+              <input
+                placeholder="name"
+                {...register('name', { required: true })}
+                className="mr-2 grow rounded-md border-[1px] border-slate-400 px-4 py-2"
+              />
+              <User color="#ffffff" size={35} />
+            </div>
+            {errors.name && (
+              <span className="text-sm text-red-500">
+                This field is required
+              </span>
+            )}
+          </div>
           <div className="mb-2 flex flex-col">
             <p className="mb-1 font-semibold text-white">Email</p>
             <div className="flex flex-row items-center">
@@ -116,9 +122,9 @@ const SignInModule: React.FC = () => {
           />
         </form>
         <p className="mt-5 text-sm text-white">
-          doesn't have an account?{' '}
-          <Link href="/signup" className="text-green-500 hover:text-green-700">
-            register
+          already have an account?{' '}
+          <Link href="/signin" className="text-green-500 hover:text-green-700">
+            login
           </Link>
         </p>
       </div>
@@ -126,4 +132,4 @@ const SignInModule: React.FC = () => {
   );
 };
 
-export default SignInModule;
+export default SignUpModule;
