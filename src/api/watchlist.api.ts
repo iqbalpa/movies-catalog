@@ -19,3 +19,16 @@ export const getWatchlist = async (accessToken: string): Promise<Movie[]> => {
   const movies: Movie[] = res.data;
   return movies;
 };
+
+export const addToWatchlist = async (
+  accessToken: string,
+  dto: Movie,
+): Promise<Movie> => {
+  const res = await axios.post(`${BASE_URL}/movies`, dto, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const movie: Movie = res.data;
+  return movie;
+};

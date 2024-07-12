@@ -14,6 +14,8 @@ import TopCast from '@/components/topCast/topCast';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store/userStore';
 import { Plus } from 'lucide-react';
+import { addToWatchlist } from '@/api/watchlist.api';
+import { getCookie } from 'cookies-next';
 
 interface IDetailMovieModule {
   id: string;
@@ -23,6 +25,7 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   const user = useSelector((state: RootState) => state.user.user);
   const [movie, setMovie] = useState<DetailMovie>();
   const [isLoading, setIsLoading] = useState(true);
+  const accessToken = getCookie('accessToken') as string;
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -36,6 +39,24 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
     };
     fetchMovie();
   }, [id]);
+
+  const handleAddWatchlist = async () => {
+    if (!movie || !user) return null;
+    try {
+      const data = {
+        id: movie?.id,
+        title: movie?.title,
+        overview: movie?.overview,
+        release_date: movie?.release_date,
+        userId: user?.id,
+      };
+      const res = await addToWatchlist(accessToken, data);
+      console.log('added to watchlist');
+      console.log(res);
+    } catch (e) {
+      console.log('failed to add to watchlist');
+    }
+  };
 
   if (!movie) {
     return;
@@ -84,10 +105,13 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
             <div className="flex flex-row gap-4">
               <Rating rating={movie.vote_average} />
               {user && (
-                <div className="flex flex-row items-center gap-2 rounded-xl bg-yellow-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-yellow-600 md:px-4 md:text-base">
+                <button
+                  onClick={handleAddWatchlist}
+                  className="flex flex-row items-center gap-2 rounded-xl bg-yellow-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-yellow-600 md:px-4 md:text-base"
+                >
                   <Plus />
                   <p className="">Add to watchlist</p>
-                </div>
+                </button>
               )}
             </div>
           </div>
