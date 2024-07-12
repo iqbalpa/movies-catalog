@@ -6,6 +6,9 @@ import { getWatchlist } from '@/api/watchlist.api';
 import { SquareArrowOutUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store/userStore';
+import { useRouter } from 'next/navigation';
 
 interface Movie {
   id: number;
@@ -18,10 +21,17 @@ interface Movie {
 const baseUrl = 'https://image.tmdb.org/t/p/original';
 
 const WatchlistModule = () => {
+  const user = useSelector((state: RootState) => state.user.user);
   const [watchlist, setWatchlist] = useState<Movie[]>([]);
   const accessToken = getCookie('accessToken') as string;
+  const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      router.push('/signin');
+      return;
+    }
+
     const fetchWatchlist = async () => {
       try {
         const res = await getWatchlist(accessToken);
@@ -33,7 +43,7 @@ const WatchlistModule = () => {
       }
     };
     fetchWatchlist();
-  }, []);
+  }, [user, accessToken]);
 
   return (
     <div className="flex min-h-screen w-full justify-center bg-black pb-14 pt-10 text-white md:pt-20">

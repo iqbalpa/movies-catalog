@@ -55,14 +55,14 @@ const Header: React.FC = () => {
         <Link href="/" className="text-lg font-bold md:text-xl lg:text-2xl">
           Movies Catalog
         </Link>
-        <div className="flex flex-row items-center gap-5">
-          <Link
-            href="/watchlist"
-            className="rounded-lg bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
-          >
-            Watchlist
-          </Link>
-          {user ? (
+        {user ? (
+          <div className="flex flex-row items-center gap-5">
+            <Link
+              href="/watchlist"
+              className="rounded-lg bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
+            >
+              Watchlist
+            </Link>
             <button
               onClick={handleLogout}
               className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-red-300 bg-red-300 bg-opacity-90 px-3 py-2 font-bold text-red-500 duration-150 hover:scale-105 hover:bg-red-200 hover:text-red-700 md:px-4"
@@ -70,7 +70,15 @@ const Header: React.FC = () => {
               <p className="mr-2">Logout</p>
               <LogOut />
             </button>
-          ) : (
+          </div>
+        ) : (
+          <div className="flex flex-row items-center gap-5">
+            <Link
+              href="/signin"
+              className="rounded-lg bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
+            >
+              Watchlist
+            </Link>
             <Link
               href="/signin"
               className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-green-300 bg-green-300 bg-opacity-90 px-3 py-2 font-bold text-green-500 duration-150 hover:scale-105 hover:bg-green-200 hover:text-green-700 md:px-4"
@@ -78,8 +86,8 @@ const Header: React.FC = () => {
               <p className="mr-2">Login</p>
               <LogIn />
             </Link>
-          )}
-        </div>
+          </div>
+        )}
       </div>
     </header>
   );
