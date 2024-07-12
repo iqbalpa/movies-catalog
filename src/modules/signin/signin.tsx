@@ -56,8 +56,8 @@ const SignInModule: React.FC = () => {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center bg-black bg-cover bg-no-repeat">
-      <div className="flex w-1/3 flex-col items-center justify-center border border-gray-200 bg-white bg-opacity-10 p-14 backdrop-blur-md backdrop-filter">
+    <div className="flex h-screen items-center justify-center bg-slate-900">
+      <div className="justify-cente flex w-full flex-col items-center bg-opacity-0 p-8 backdrop-blur-md backdrop-filter md:w-1/2 md:border md:border-gray-200 md:bg-opacity-20 md:p-14 lg:w-1/3">
         <h1 className="mb-5 text-xl font-bold uppercase text-white">Sign In</h1>
         <form
           onSubmit={handleSubmit(onSubmit)}
