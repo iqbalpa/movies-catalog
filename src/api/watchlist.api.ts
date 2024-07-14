@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL: string = 'http://localhost:3000';
+const BASE_URL = process.env.BASE_URL;
 
 interface Movie {
   id: number;
