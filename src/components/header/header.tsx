@@ -15,11 +15,6 @@ const antiHeader: string[] = ['/signup', '/signin'];
 
 const Header: React.FC = () => {
   const pathname = usePathname();
-  const isSidebarDisabled = antiHeader.includes(pathname);
-  if (isSidebarDisabled) {
-    return null;
-  }
-
   const user = useSelector((state: RootState) => state.user.user);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -36,6 +31,11 @@ const Header: React.FC = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const isSidebarDisabled = antiHeader.includes(pathname);
+  if (isSidebarDisabled) {
+    return null;
+  }
 
   const handleLogout = () => {
     dispatch(logout());

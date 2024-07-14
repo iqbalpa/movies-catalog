@@ -113,7 +113,7 @@ const SignInModule: React.FC = () => {
           />
         </form>
         <p className="mt-5 text-sm text-white">
-          doesn't have an account?{' '}
+          doesn{`'`}t have an account?{' '}
           <Link href="/signup" className="text-green-500 hover:text-green-700">
             register
           </Link>

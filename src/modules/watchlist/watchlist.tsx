@@ -43,7 +43,7 @@ const WatchlistModule = () => {
       }
     };
     fetchWatchlist();
-  }, [user, accessToken]);
+  }, [user, accessToken, router]);
 
   return (
     <div className="flex min-h-screen w-full justify-center bg-black pb-14 pt-10 text-white md:pt-20">
@@ -59,7 +59,10 @@ const WatchlistModule = () => {
           <div className="w-full border-t-[1px] border-slate-500"></div>
           <div className="flex flex-col items-center">
             {watchlist.map((movie, index) => (
-              <div className="flex w-full flex-col items-center gap-3 border-b-[1px] border-slate-500 p-2 md:flex-row">
+              <div
+                key={movie.id}
+                className="flex w-full flex-col items-center gap-3 border-b-[1px] border-slate-500 p-2 md:flex-row"
+              >
                 <Image
                   src={`${baseUrl}${movie.poster_path}`}
                   alt={movie.title}
