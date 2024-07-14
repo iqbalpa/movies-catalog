@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SignInRequest, SignUpRequest } from '@/constant/auth.constant';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const signup = async (data: SignUpRequest) => {
   let res = await axios.post(`${BASE_URL}/auth/signup`, {
