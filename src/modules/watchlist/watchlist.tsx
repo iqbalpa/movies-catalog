@@ -100,10 +100,11 @@ const WatchlistModule = () => {
                   >
                     <SquareArrowOutUpRight />
                   </Link>
-                  <MyAlertDialog
-                    movieId={movie.id}
-                    handleDelete={handleDelete}
-                  />
+                  <MyAlertDialog movieId={movie.id} handleDelete={handleDelete}>
+                    <div className="rounded-md p-1 duration-150 hover:cursor-pointer hover:bg-red-500 hover:bg-opacity-40 hover:text-red-500">
+                      <Trash2 />
+                    </div>
+                  </MyAlertDialog>
                 </div>
               </div>
             ))}

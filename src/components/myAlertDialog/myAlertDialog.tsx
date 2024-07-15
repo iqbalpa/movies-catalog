@@ -15,14 +15,17 @@ import { Trash2 } from 'lucide-react';
 interface IMyAlertDialog {
   movieId: number;
   handleDelete: (id: number) => void;
+  children: React.ReactNode;
 }
 
-const MyAlertDialog: React.FC<IMyAlertDialog> = ({ movieId, handleDelete }) => {
+const MyAlertDialog: React.FC<IMyAlertDialog> = ({
+  movieId,
+  handleDelete,
+  children,
+}) => {
   return (
     <AlertDialog>
-      <AlertDialogTrigger className="rounded-md p-1 duration-150 hover:cursor-pointer hover:bg-red-500 hover:bg-opacity-40 hover:text-red-500">
-        <Trash2 />
-      </AlertDialogTrigger>
+      <AlertDialogTrigger>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>

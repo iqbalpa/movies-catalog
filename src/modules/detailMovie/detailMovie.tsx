@@ -13,12 +13,13 @@ import CrewList from '@/components/crewList/crewList';
 import TopCast from '@/components/topCast/topCast';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
-import { Check, Plus } from 'lucide-react';
-import { addToWatchlist } from '@/api/watchlist.api';
+import { Check, Plus, Trash2 } from 'lucide-react';
+import { addToWatchlist, deleteFromWatchlist } from '@/api/watchlist.api';
 import { getCookie } from 'cookies-next';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { addWatchlist } from '@/store/watchlistSlice';
+import { addWatchlist, removeFromWatchlist } from '@/store/watchlistSlice';
+import MyAlertDialog from '@/components/myAlertDialog/myAlertDialog';
 
 interface IDetailMovieModule {
   id: string;
@@ -70,6 +71,16 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   const handleAddedToWatchlist = () => {
     toast.success('Movie already added to watchlist');
   };
+  const handleDelete = async (movieId: number) => {
+    try {
+      await deleteFromWatchlist(accessToken, movieId);
+      dispatch(removeFromWatchlist(movieId));
+      toast.success('Movie removed from watchlist');
+    } catch (e) {
+      console.log('Failed to remove the movie from watchlist');
+      toast.error('Failed to remove the movie from watchlist');
+    }
+  };
 
   if (!movie) {
     return;
@@ -118,13 +129,12 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
             <div className="flex flex-row gap-4">
               <Rating rating={movie.vote_average} />
               {user && wathclistIds.includes(movie.id) && (
-                <button
-                  onClick={handleAddedToWatchlist}
-                  className="flex flex-row items-center gap-2 rounded-xl bg-green-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-green-600 md:px-4 md:text-base"
-                >
-                  <Check />
-                  <p className="">Added to watchlist</p>
-                </button>
+                <MyAlertDialog movieId={movie.id} handleDelete={handleDelete}>
+                  <div className="flex flex-row items-center gap-2 rounded-xl bg-red-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-red-600 md:px-4 md:text-base">
+                    <Trash2 />
+                    <p className="">Remove from watchlist</p>
+                  </div>
+                </MyAlertDialog>
               )}
               {user && !wathclistIds.includes(movie.id) && (
                 <button
