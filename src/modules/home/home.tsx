@@ -37,7 +37,7 @@ const HomeModule: React.FC = () => {
       }
     };
     fetchWatchlist();
-  }, [user, accessToken]);
+  }, [user, accessToken, dispatch]);
 
   useEffect(() => {
     if (query !== '') {
