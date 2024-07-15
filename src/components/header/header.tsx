@@ -1,7 +1,7 @@
 'use client';
 
 import { logout } from '@/store/userSlice';
-import { RootState } from '@/store/userStore';
+import { RootState } from '@/store/store';
 import { getCookie } from 'cookies-next';
 import { LogIn, LogOut } from 'lucide-react';
 import Link from 'next/link';

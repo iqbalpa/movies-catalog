@@ -7,7 +7,7 @@ import { SquareArrowOutUpRight } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSelector } from 'react-redux';
-import { RootState } from '@/store/userStore';
+import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 
 interface Movie {
@@ -35,8 +35,6 @@ const WatchlistModule = () => {
     const fetchWatchlist = async () => {
       try {
         const res = await getWatchlist(accessToken);
-        console.log('WATCHLIST');
-        console.log(res);
         setWatchlist(res);
       } catch (e) {
         console.log(e);
@@ -52,7 +50,7 @@ const WatchlistModule = () => {
           Your watchlist is empty :{`(`}
         </div>
       ) : (
-        <div className="flex flex-col px-4 md:px-10">
+        <div className="flex w-full flex-col px-10 md:px-14">
           <h1 className="m-3 text-center text-lg font-bold md:text-xl lg:text-2xl">
             Watchlist
           </h1>
@@ -61,7 +59,7 @@ const WatchlistModule = () => {
             {watchlist.map((movie, index) => (
               <div
                 key={movie.id}
-                className="flex w-full flex-col items-center gap-3 border-b-[1px] border-slate-500 p-2 md:flex-row"
+                className="flex w-full flex-col items-center gap-3 border-b-[1px] border-slate-500 p-2 py-4 md:flex-row md:py-8"
               >
                 <Image
                   src={`${baseUrl}${movie.poster_path}`}
@@ -71,7 +69,7 @@ const WatchlistModule = () => {
                   className="rounded-md"
                 />
                 <div className="flex w-full flex-col gap-1">
-                  <p className="text-sm font-semibold md:text-base">
+                  <p className="text-center text-sm font-semibold md:text-left md:text-base">
                     {movie.title} ({movie.release_date.split('-')[0]})
                   </p>
                   <p className="hidden text-xs md:block md:text-sm">
@@ -80,6 +78,7 @@ const WatchlistModule = () => {
                 </div>
                 <Link
                   href={`/${movie.id}`}
+                  target="_blank"
                   className="rounded-md p-1 duration-150 hover:cursor-pointer hover:bg-slate-200 hover:bg-opacity-15"
                 >
                   <SquareArrowOutUpRight />

@@ -11,13 +11,14 @@ import Genres from '@/components/genres/genres';
 import YearRuntime from '@/components/yearRuntime/yearRuntime';
 import CrewList from '@/components/crewList/crewList';
 import TopCast from '@/components/topCast/topCast';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store/userStore';
-import { Plus } from 'lucide-react';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { Check, Plus } from 'lucide-react';
 import { addToWatchlist } from '@/api/watchlist.api';
 import { getCookie } from 'cookies-next';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { addWatchlist } from '@/store/watchlistSlice';
 
 interface IDetailMovieModule {
   id: string;
@@ -28,6 +29,10 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
   const [movie, setMovie] = useState<DetailMovie>();
   const [isLoading, setIsLoading] = useState(true);
   const accessToken = getCookie('accessToken') as string;
+  const wathclistIds = useSelector(
+    (state: RootState) => state.watchlist.watchlistIds,
+  );
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -55,12 +60,15 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
       console.log(data);
       const res = await addToWatchlist(accessToken, data);
       toast.success('Movie added to watchlist');
+      dispatch(addWatchlist(res.id));
       console.log('added to watchlist');
-      console.log(res);
     } catch (e) {
       toast.error('failed adding to watchlist');
       console.log('failed to add to watchlist');
     }
+  };
+  const handleAddedToWatchlist = () => {
+    toast.success('Movie already added to watchlist');
   };
 
   if (!movie) {
@@ -109,7 +117,16 @@ const DetailMovieModule: React.FC<IDetailMovieModule> = ({ id }) => {
             <Genres genres={movie.genres} />
             <div className="flex flex-row gap-4">
               <Rating rating={movie.vote_average} />
-              {user && (
+              {user && wathclistIds.includes(movie.id) && (
+                <button
+                  onClick={handleAddedToWatchlist}
+                  className="flex flex-row items-center gap-2 rounded-xl bg-green-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-green-600 md:px-4 md:text-base"
+                >
+                  <Check />
+                  <p className="">Added to watchlist</p>
+                </button>
+              )}
+              {user && !wathclistIds.includes(movie.id) && (
                 <button
                   onClick={handleAddWatchlist}
                   className="flex flex-row items-center gap-2 rounded-xl bg-yellow-500 px-3 py-2 text-sm font-bold text-black duration-150 hover:scale-105 hover:cursor-pointer hover:bg-yellow-600 md:px-4 md:text-base"

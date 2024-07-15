@@ -7,12 +7,37 @@ import Backdrop from '@/components/backdrop/backdrop';
 import ListMovies from '@/components/listMovies/listMovies';
 import MyPagination from '@/components/myPagination/myPagination';
 import SearchBar from '@/components/searchBar/searchBar';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '@/store/store';
+import { getCookie } from 'cookies-next';
+import { getWatchlist } from '@/api/watchlist.api';
+import { addWatchlist } from '@/store/watchlistSlice';
 
 const HomeModule: React.FC = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [backdrop, setBackdrop] = useState<string>('');
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [query, setQuery] = useState<string>('');
+  const user = useSelector((state: RootState) => state.user.user);
+  const accessToken = getCookie('accessToken') as string;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!user) {
+      return;
+    }
+    const fetchWatchlist = async () => {
+      try {
+        const res = await getWatchlist(accessToken);
+        for (const movie of res) {
+          dispatch(addWatchlist(movie.id));
+        }
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    fetchWatchlist();
+  }, [user, accessToken]);
 
   useEffect(() => {
     if (query !== '') {
