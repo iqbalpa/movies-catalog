@@ -69,13 +69,13 @@ const Header: React.FC = () => {
             <>
               <Link
                 href="/watchlist"
-                className="rounded-lg bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
+                className="rounded-lg border-2 bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
               >
                 Watchlist
               </Link>
               <button
                 onClick={handleLogout}
-                className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-red-300 bg-red-300 bg-opacity-90 px-3 py-2 font-bold text-red-500 duration-150 hover:scale-105 hover:bg-red-200 hover:text-red-700 md:px-4"
+                className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-red-200 bg-red-200 bg-opacity-90 px-3 py-2 font-bold text-red-700 duration-150 hover:scale-105 hover:border-red-400 hover:bg-red-400 hover:text-red-900 md:px-4"
               >
                 <p className="mr-2">Logout</p>
                 <LogOut />
@@ -85,15 +85,15 @@ const Header: React.FC = () => {
             <>
               <Link
                 href="/signin"
-                className="rounded-lg bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
+                className="rounded-lg border-2 bg-slate-200 bg-opacity-5 px-3 py-2 font-semibold duration-150 hover:scale-105 hover:bg-opacity-15 hover:text-slate-200 md:px-4"
               >
                 Watchlist
               </Link>
               <Link
                 href="/signin"
-                className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-green-300 bg-green-300 bg-opacity-90 px-3 py-2 font-bold text-green-500 duration-150 hover:scale-105 hover:bg-green-200 hover:text-green-700 md:px-4"
+                className="flex cursor-pointer flex-row justify-center rounded-lg border-2 border-green-200 bg-green-200 bg-opacity-90 px-3 py-2 font-bold text-green-700 duration-150 hover:scale-105 hover:border-green-400 hover:bg-green-400 hover:text-green-900 md:px-4"
               >
-                <p className="mr-2">Login</p>
+                <p className="mr-2">Sign In</p>
                 <LogIn />
               </Link>
             </>
