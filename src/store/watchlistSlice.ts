@@ -15,9 +15,14 @@ const watchlistSlice = createSlice({
     addWatchlist: (state, action: PayloadAction<number>) => {
       state.watchlistIds.push(action.payload);
     },
+    removeFromWatchlist: (state, action: PayloadAction<number>) => {
+      state.watchlistIds = state.watchlistIds.filter(
+        (id) => id !== action.payload,
+      );
+    },
   },
 });
 
-export const { addWatchlist } = watchlistSlice.actions;
+export const { addWatchlist, removeFromWatchlist } = watchlistSlice.actions;
 
 export default watchlistSlice.reducer;

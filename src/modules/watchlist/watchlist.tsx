@@ -6,12 +6,13 @@ import { deleteFromWatchlist, getWatchlist } from '@/api/watchlist.api';
 import { SquareArrowOutUpRight, Trash2 } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import MyAlertDialog from '@/components/myAlertDialog/myAlertDialog';
+import { removeFromWatchlist } from '@/store/watchlistSlice';
 
 interface Movie {
   id: number;
@@ -28,6 +29,7 @@ const WatchlistModule = () => {
   const [watchlist, setWatchlist] = useState<Movie[]>([]);
   const accessToken = getCookie('accessToken') as string;
   const router = useRouter();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!user) {
@@ -49,6 +51,7 @@ const WatchlistModule = () => {
     try {
       await deleteFromWatchlist(accessToken, movieId);
       setWatchlist((prev) => prev.filter((movie) => movie.id !== movieId));
+      dispatch(removeFromWatchlist(movieId));
       toast.success('Movie removed from watchlist');
     } catch (e) {
       console.log('Failed to remove the movie from watchlist');
