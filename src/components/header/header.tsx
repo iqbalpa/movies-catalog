@@ -100,7 +100,9 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
-      {isOpen && <Dropdown isScrolled={isScrolled} />}
+      {isOpen && (
+        <Dropdown isScrolled={isScrolled} handleLogout={handleLogout} />
+      )}
     </header>
   );
 };
