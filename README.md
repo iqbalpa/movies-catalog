@@ -1,13 +1,9 @@
 # Movies Catalog (frontend)
 
-Visit the website [here](https://iqbalpa-movies-catalog.vercel.app/)
+Movies Catalog web application with TMDB API. Visit the website [here](https://iqbalpa-movies-catalog.vercel.app/)
 
-<p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_dark_background.png">
-    <img src="https://assets.vercel.com/image/upload/v1662130559/nextjs/Icon_light_background.png" height="128">
-  </picture>
-</p>
+## Demo Video
+https://github.com/user-attachments/assets/ebf6cf7a-5a96-407f-adfe-464ff44a44c9
 
 ## Features
 1. Authentication (signup and signin)
@@ -18,4 +14,5 @@ Visit the website [here](https://iqbalpa-movies-catalog.vercel.app/)
 
 ## Tech Stack
 1. Next.js
-2. React-redux
+2. Tailwindcss
+3. React-redux
