@@ -11,17 +11,7 @@ import { RootState } from '@/store/store';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from '@/components/ui/alert-dialog';
+import MyAlertDialog from '@/components/myAlertDialog/myAlertDialog';
 
 interface Movie {
   id: number;
@@ -58,9 +48,11 @@ const WatchlistModule = () => {
   const handleDelete = async (movieId: number) => {
     try {
       await deleteFromWatchlist(accessToken, movieId);
-      toast.success('movie removed from watchlist');
+      setWatchlist((prev) => prev.filter((movie) => movie.id !== movieId));
+      toast.success('Movie removed from watchlist');
     } catch (e) {
-      console.log('failed to remove the movie from watchlist');
+      console.log('Failed to remove the movie from watchlist');
+      toast.error('Failed to remove the movie from watchlist');
     }
   };
 
@@ -105,12 +97,6 @@ const WatchlistModule = () => {
                   >
                     <SquareArrowOutUpRight />
                   </Link>
-                  {/* <button
-                    onClick={() => handleDelete(movie.id)}
-                    className="rounded-md p-1 duration-150 hover:cursor-pointer hover:bg-red-500 hover:bg-opacity-40 hover:text-red-500"
-                  >
-                    <Trash2 />
-                  </button> */}
                   <MyAlertDialog
                     movieId={movie.id}
                     handleDelete={handleDelete}
@@ -126,36 +112,3 @@ const WatchlistModule = () => {
 };
 
 export default WatchlistModule;
-
-interface IMyAlertDialog {
-  movieId: number;
-  handleDelete: (id: number) => void;
-}
-
-const MyAlertDialog: React.FC<IMyAlertDialog> = ({ movieId, handleDelete }) => {
-  return (
-    <AlertDialog>
-      <AlertDialogTrigger className="rounded-md p-1 duration-150 hover:cursor-pointer hover:bg-red-500 hover:bg-opacity-40 hover:text-red-500">
-        <Trash2 />
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-          <AlertDialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction
-            onClick={() => handleDelete(movieId)}
-            className="bg-red-500 hover:bg-red-500 hover:bg-opacity-85"
-          >
-            Remove
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
-  );
-};
